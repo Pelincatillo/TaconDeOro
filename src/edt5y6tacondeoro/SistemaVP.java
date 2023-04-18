@@ -13,7 +13,15 @@ import edt5tacondeoro1.Pedido;
 import edt5tacondeoro1.Ruta;
 import edt5tacondeoro1.Socio;
 import edt5tacondeoro1.Zapato;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -25,6 +33,10 @@ public class SistemaVP extends javax.swing.JFrame {
     ArrayList<Ruta> listaRutas;
     ArrayList<Pedido> listaPedidos;
     ArrayList<LineaPedido> listaLineasP;
+    public static final String URL="jdbc:mysql://localhost:3306/taconDeOro";
+    public static final String USERNAME="toor";
+    public static final String PASSWORD="toor";
+    DefaultTableModel dtmTaconDeOro=null;
 
     /**
      * Creates new form SistemaVP
@@ -37,6 +49,17 @@ public class SistemaVP extends javax.swing.JFrame {
         listaPedidos= new <Pedido> ArrayList();
         listaLineasP= new <LineaPedido> ArrayList();
         
+        
+    }
+    public static Connection conexion(){
+        Connection conexion=null;
+        try {
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            conexion=(Connection) DriverManager.getConnection(URL,USERNAME,PASSWORD);
+        } catch (SQLException excepcion) {
+            java.util.logging.Logger.getLogger(SistemaVP.class.getName()).log(java.util.logging.Level.SEVERE, null, excepcion);
+        }
+        return conexion;
     }
     public void crearDatosDePrueba(){
         LineaPedido lp=null;
@@ -91,6 +114,7 @@ public class SistemaVP extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btn_soc = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,6 +132,13 @@ public class SistemaVP extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Conexión");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -115,9 +146,11 @@ public class SistemaVP extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(83, 83, 83)
                 .addComponent(btn_soc, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(136, 136, 136)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(43, 43, 43)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +158,8 @@ public class SistemaVP extends javax.swing.JFrame {
                 .addContainerGap(172, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_soc)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
                 .addGap(160, 160, 160))
         );
 
@@ -154,6 +188,48 @@ public class SistemaVP extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here
+        try {    
+                Statement declaracion=null;
+                ResultSet conjuntoResultados=null;
+                Connection conexion=null;
+                dtmTaconDeOro=new DefaultTableModel();
+                dtmTaconDeOro.addColumn("codPedido");
+                dtmTaconDeOro.addColumn("codSocio");
+                dtmTaconDeOro.addColumn("estado");
+                dtmTaconDeOro.addColumn("fechaP");
+                HacerPedido.jTable1.setModel(dtmTaconDeOro);
+                conexion=conexion();
+                declaracion=conexion.createStatement();
+                conjuntoResultados=declaracion.executeQuery("select * from procesador");
+                try {
+                    while(conjuntoResultados.next()){
+                        Object[]fila=new Object[4];
+                        fila[0]=conjuntoResultados.getObject(1);
+                        fila[1]=conjuntoResultados.getObject(2);
+                        fila[2]=conjuntoResultados.getObject(3);
+                        fila[3]=conjuntoResultados.getObject(4);
+                        dtmTaconDeOro.addRow(fila);
+                    }
+                }
+                catch(SQLException excepcion){
+                    Logger.getLogger(SistemaVP.class.getName()).log(Level.SEVERE,null,excepcion);
+                }
+                finally{
+                    try {
+                        declaracion.close();
+                        conexion.close();
+                    } catch (SQLException excepcion) {
+                        Logger.getLogger(SistemaVP.class.getName()).log(Level.SEVERE,null,excepcion);
+                    }
+                }
+            }
+            catch(SQLException excepcion){
+            Logger.getLogger(SistemaVP.class.getName()).log(Level.SEVERE,null,excepcion);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,6 +268,7 @@ public class SistemaVP extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_soc;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
