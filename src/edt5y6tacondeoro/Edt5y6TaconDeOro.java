@@ -16,8 +16,8 @@ public class Edt5y6TaconDeOro {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        SistemaVP vp= new SistemaVP();//vs= ventana principal del sistema
-        vp.setVisible(true);
+        SistemaVP vs= new SistemaVP();//vs= ventana principal del sistema
+        vs.setVisible(true);
     }
     
 }
