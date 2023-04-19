@@ -4,6 +4,7 @@
  */
 package edt5y6tacondeoro;
 
+import javax.swing.DefaultListModel;
 import javax.swing.SpinnerNumberModel;
 
 /**
@@ -13,14 +14,17 @@ import javax.swing.SpinnerNumberModel;
 public class HacerPedido extends javax.swing.JDialog {
  private SistemaVP mipadre=null;
  int i;
- private SpinnerNumberModel nm= new SpinnerNumberModel();
+ private SpinnerNumberModel nm;
+ private DefaultListModel dlmTallas;
     /**
      * Creates new form HcacerPedido
      */
     public HacerPedido(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        nm= new SpinnerNumberModel();
         nm.setMinimum(0);
+        dlmTallas= new DefaultListModel();
         spn_cant.setModel(nm);
         parent.setVisible(false);
         mipadre=(SistemaVP) parent;
@@ -44,7 +48,7 @@ public class HacerPedido extends javax.swing.JDialog {
         spn_cant = new javax.swing.JSpinner();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        lst_talla = new javax.swing.JList<>();
         jLabel3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -92,12 +96,12 @@ public class HacerPedido extends javax.swing.JDialog {
 
         jLabel2.setText("Talla");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        lst_talla.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList1);
+        jScrollPane2.setViewportView(lst_talla);
 
         jLabel3.setText("Productos");
 
@@ -225,11 +229,17 @@ public class HacerPedido extends javax.swing.JDialog {
 
     private void tbl_producMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_producMouseClicked
         // TODO add your handling code here:
+        lst_talla.removeAll();
+        
         //noseque array? =new articulo ;
         spn_cant.setEnabled(true);
         //tbl_produc.getSelectedRow();
         //int num=articulo o yo que se.cant o stock
          //nm.setMaximum(num);
+         //if(articulo.tipo=uno que tiene talla)
+         //{dlmTallas.clear();
+         //(dlmTallas.addlo que le pongais y esto dentro de un bucle)
+         //lst_talla Añadir las tallas de este con un selec
     }//GEN-LAST:event_tbl_producMouseClicked
 
     /**
@@ -283,12 +293,12 @@ public class HacerPedido extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JList<String> lst_talla;
     private javax.swing.JSpinner spn_cant;
     private javax.swing.JTable tbl_produc;
     // End of variables declaration//GEN-END:variables
