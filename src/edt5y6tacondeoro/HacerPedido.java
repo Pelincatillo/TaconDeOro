@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 public class HacerPedido extends javax.swing.JDialog {
     private SistemaVP mipadre=null;
     DefaultTableModel dtmArticulos = null;
-    DefaultListModel dlmCarrito = null;
+    DefaultTableModel dtmCarrito = null;
     DefaultTableModel dtmTalla = null;
  
     /**
@@ -33,8 +32,13 @@ public class HacerPedido extends javax.swing.JDialog {
         mipadre=(SistemaVP) parent;
         SistemaVP.hazConexion();
         conexionBD();
+        dtmCarrito = new DefaultTableModel();
+        dtmCarrito.addColumn("Nombre");
+        dtmCarrito.addColumn("PrecioxCTD");
+        dtmCarrito.addColumn("Cantidad");
+        dtmCarrito.addColumn("Talla");
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,12 +56,12 @@ public class HacerPedido extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btn_añadirCarrito = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        lst_carrito = new javax.swing.JList<>();
         jLabel4 = new javax.swing.JLabel();
         btn_cancelar = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tbl_talla = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbl_carrito = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -96,13 +100,11 @@ public class HacerPedido extends javax.swing.JDialog {
         jLabel3.setText("Articulos");
 
         btn_añadirCarrito.setText("Añadir al carro");
-
-        lst_carrito.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        btn_añadirCarrito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_añadirCarritoActionPerformed(evt);
+            }
         });
-        jScrollPane3.setViewportView(lst_carrito);
 
         jLabel4.setText("Carro");
 
@@ -125,6 +127,19 @@ public class HacerPedido extends javax.swing.JDialog {
             }
         ));
         jScrollPane4.setViewportView(tbl_talla);
+
+        tbl_carrito.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tbl_carrito);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,10 +166,10 @@ public class HacerPedido extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_pedido, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)))
+                        .addGap(27, 27, 27))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -173,7 +188,6 @@ public class HacerPedido extends javax.swing.JDialog {
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -181,13 +195,13 @@ public class HacerPedido extends javax.swing.JDialog {
                                 .addGap(55, 55, 55)
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(8, 8, 8)
                         .addComponent(btn_pedido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_cancelar)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -213,6 +227,30 @@ public class HacerPedido extends javax.swing.JDialog {
         obtenerTallas(nombre);
         tbl_talla.setModel(dtmTalla);
     }//GEN-LAST:event_tbl_articulosMouseClicked
+
+    private void btn_añadirCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_añadirCarritoActionPerformed
+        // TODO add your handling code here:
+        int i = tbl_articulos.getSelectedRow();
+        int j = tbl_talla.getSelectedRow();
+        tbl_carrito.setModel(dtmCarrito);
+        float precio=(float) dtmArticulos.getValueAt(i, 1);
+        int ctd = (int)spn_cantidad.getValue();
+        Object[] lineaPedido = new Object[4];
+        lineaPedido[0]=dtmArticulos.getValueAt(i, 0);
+        if (ctd == 0) {
+            ctd = 1;
+            lineaPedido[1]= precio * ctd;
+        } else {
+            lineaPedido[1]= precio * ctd;
+        }
+        lineaPedido[2]=ctd;
+        if (tbl_talla.isRowSelected(j)) {
+            lineaPedido[3]=dtmTalla.getValueAt(j, 0);
+        } else {
+            lineaPedido[3]=0;
+        }
+        dtmCarrito.addRow(lineaPedido);
+    }//GEN-LAST:event_btn_añadirCarritoActionPerformed
     public void conexionBD() {
         Statement s = null;
         ResultSet rs = null;
@@ -320,11 +358,11 @@ public class HacerPedido extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JList<String> lst_carrito;
     private javax.swing.JSpinner spn_cantidad;
     private javax.swing.JTable tbl_articulos;
+    private javax.swing.JTable tbl_carrito;
     private javax.swing.JTable tbl_talla;
     // End of variables declaration//GEN-END:variables
 }
