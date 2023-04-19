@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,8 +18,10 @@ import javax.swing.table.DefaultTableModel;
  * @author usuario
  */
 public class HacerPedido extends javax.swing.JDialog {
- private SistemaVP mipadre=null;
- DefaultTableModel dtmArticulos = null;
+    private SistemaVP mipadre=null;
+    DefaultTableModel dtmArticulos = null;
+    DefaultListModel dlmCarrito = null;
+    DefaultListModel dlmTalla = null;
  
     /**
      * Creates new form HcacerPedido
@@ -29,6 +32,7 @@ public class HacerPedido extends javax.swing.JDialog {
         parent.setVisible(false);
         mipadre=(SistemaVP) parent;
         SistemaVP.hazConexion();
+        conexionBD();
     }
 
     /**
@@ -78,6 +82,11 @@ public class HacerPedido extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_articulos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_articulosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_articulos);
 
         jLabel1.setText("Cantidad");
@@ -189,6 +198,14 @@ public class HacerPedido extends javax.swing.JDialog {
         // TODO add your handling code here:
         mipadre.setVisible(true);
     }//GEN-LAST:event_formWindowClosed
+
+    private void tbl_articulosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_articulosMouseClicked
+        // TODO add your handling code here:
+        int i = tbl_articulos.getSelectedRow();
+        String nombre=(String) dtmArticulos.getValueAt(i, 0);
+        obtenerTallas(nombre);
+        lst_talla.setModel(dlmTalla);
+    }//GEN-LAST:event_tbl_articulosMouseClicked
     public void conexionBD() {
         Statement s = null;
         ResultSet rs = null;
@@ -206,6 +223,30 @@ public class HacerPedido extends javax.swing.JDialog {
                 fila[0] = rs.getObject(1);
                 fila[1] = rs.getObject(2);
                 dtmArticulos.addRow(fila);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error. " + ex.getMessage());
+        } finally {
+            try {
+                s.close();
+                co.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(HacerPedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    public void obtenerTallas(String nombre){
+        Statement s = null;
+        ResultSet rs = null;
+        Connection co = null;
+        co = mipadre.hazConexion();
+        try {
+            s = co.createStatement();
+            rs = s.executeQuery("select talla from articulo where nombre=" + "'"+nombre+"'");
+            while (rs.next()) {
+                Object[] fila = new Object[1];
+                fila[0] = rs.getObject(1);
+                dlmTalla.addElement(fila);
             }
         } catch (SQLException ex) {
             System.out.println("Error. " + ex.getMessage());
