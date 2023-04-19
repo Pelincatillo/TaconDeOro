@@ -247,7 +247,7 @@ public class HacerPedido extends javax.swing.JDialog {
         if (tbl_talla.isRowSelected(j)) {
             lineaPedido[3]=dtmTalla.getValueAt(j, 0);
         } else {
-            lineaPedido[3]=0;
+            lineaPedido[3]="Sin talla";
         }
         dtmCarrito.addRow(lineaPedido);
     }//GEN-LAST:event_btn_añadirCarritoActionPerformed
