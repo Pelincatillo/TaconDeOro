@@ -21,7 +21,7 @@ public class HacerPedido extends javax.swing.JDialog {
     private SistemaVP mipadre=null;
     DefaultTableModel dtmArticulos = null;
     DefaultListModel dlmCarrito = null;
-    DefaultListModel dlmTalla = null;
+    DefaultTableModel dtmTalla = null;
  
     /**
      * Creates new form HcacerPedido
@@ -49,8 +49,6 @@ public class HacerPedido extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_articulos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        lst_talla = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btn_añadirCarrito = new javax.swing.JButton();
@@ -58,6 +56,8 @@ public class HacerPedido extends javax.swing.JDialog {
         lst_carrito = new javax.swing.JList<>();
         jLabel4 = new javax.swing.JLabel();
         btn_cancelar = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tbl_talla = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -91,13 +91,6 @@ public class HacerPedido extends javax.swing.JDialog {
 
         jLabel1.setText("Cantidad");
 
-        lst_talla.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(lst_talla);
-
         jLabel2.setText("Talla");
 
         jLabel3.setText("Articulos");
@@ -120,6 +113,19 @@ public class HacerPedido extends javax.swing.JDialog {
             }
         });
 
+        tbl_talla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Title 1"
+            }
+        ));
+        jScrollPane4.setViewportView(tbl_talla);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -131,16 +137,16 @@ public class HacerPedido extends javax.swing.JDialog {
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(64, 64, 64)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(spn_cantidad, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_pedido, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
@@ -174,13 +180,14 @@ public class HacerPedido extends javax.swing.JDialog {
                                 .addComponent(spn_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(55, 55, 55)
                                 .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(2, 2, 2)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_pedido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_cancelar)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -204,7 +211,7 @@ public class HacerPedido extends javax.swing.JDialog {
         int i = tbl_articulos.getSelectedRow();
         String nombre=(String) dtmArticulos.getValueAt(i, 0);
         obtenerTallas(nombre);
-        lst_talla.setModel(dlmTalla);
+        tbl_talla.setModel(dtmTalla);
     }//GEN-LAST:event_tbl_articulosMouseClicked
     public void conexionBD() {
         Statement s = null;
@@ -240,13 +247,15 @@ public class HacerPedido extends javax.swing.JDialog {
         ResultSet rs = null;
         Connection co = null;
         co = mipadre.hazConexion();
+        dtmTalla = new DefaultTableModel();
+        dtmTalla.addColumn("Talla");
         try {
             s = co.createStatement();
             rs = s.executeQuery("select talla from articulo where nombre=" + "'"+nombre+"'");
             while (rs.next()) {
                 Object[] fila = new Object[1];
                 fila[0] = rs.getObject(1);
-                dlmTalla.addElement(fila);
+                dtmTalla.addRow(fila);
             }
         } catch (SQLException ex) {
             System.out.println("Error. " + ex.getMessage());
@@ -311,11 +320,11 @@ public class HacerPedido extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JList<String> lst_carrito;
-    private javax.swing.JList<String> lst_talla;
     private javax.swing.JSpinner spn_cantidad;
     private javax.swing.JTable tbl_articulos;
+    private javax.swing.JTable tbl_talla;
     // End of variables declaration//GEN-END:variables
 }
