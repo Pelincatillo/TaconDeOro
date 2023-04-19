@@ -28,9 +28,9 @@ public class SistemaVP extends javax.swing.JFrame {
     ArrayList<Ruta> listaRutas;
     ArrayList<Pedido> listaPedidos;
     ArrayList<LineaPedido> listaLineasP;
-    public static final String URL="jdbc:mysql://localhost:3306/taconDeOro";
-    public static final String USERNAME="root";
-    public static final String PASSWORD="toor";
+    public static final String URL="jdbc:mysql://192.168.1.53:3306/taconDeOro";
+    public static final String USERNAME="usuarioTaconOro";
+    public static final String PASSWORD="usuarioTaconOro";
 
     /**
      * Creates new form SistemaVP
