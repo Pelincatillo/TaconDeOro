@@ -3,6 +3,7 @@ package edt5tacondeoro1;
 import java.util.*;
 
 /**
+<<<<<<< HEAD
  * Representa la empresa que hace el reparto de los paquetes con los pedidos de los socios. De una empresa de transporte se guarda su nombre, CIF y direcci�n fiscal. Mantiene un conjunto de rutas de reparto.
  */
 public class EmpresaDeTransporte {
@@ -29,6 +30,7 @@ public class EmpresaDeTransporte {
     }
         
         
+
 
 	public String getNombre() {
 		return this.nombre;

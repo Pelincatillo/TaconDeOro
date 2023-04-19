@@ -17,6 +17,11 @@ public class Bolso extends Articulo {
 
 
 
+        
+        
+
+
+
 	
         
 

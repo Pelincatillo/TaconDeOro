@@ -1,6 +1,7 @@
 package edt5tacondeoro1;
 
 /**
+<<<<<<< HEAD
  * Representa la tarjeta de cr�dito o d�bito con la que el socio pagar� el pedido. Tiene un n�mero de tarjeta y debe poder comprobarse su validez contra una entidad bancaria.
  */
 public class TarjetaBancaria {
@@ -51,5 +52,6 @@ public class TarjetaBancaria {
     
    
         
+
 
 }

@@ -106,9 +106,4 @@ public class Articulo {
 		this.stock = stock;
 	}
 
-
-
-
-
-
 }

@@ -6,6 +6,7 @@ package edt5tacondeoro1;
 public class Complemento extends Articulo {
 
 	private int talla;
+
         
     public Complemento() {
 	
@@ -18,6 +19,7 @@ public class Complemento extends Articulo {
     public Complemento(int talla,int codArticulo, String nombre, float precio, String descripcion, String material,String tipo, int stock) {
         super(codArticulo,nombre, precio, descripcion, material,tipo, stock);
         
+
         this.talla = talla;
     }
         

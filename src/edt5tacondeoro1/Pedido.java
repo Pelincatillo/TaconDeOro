@@ -10,6 +10,7 @@ enum EstadoPedido{
 }
 public class Pedido {
 
+
         private int codPedido;
 	//private Date fecha;
         private Calendar fecha;
@@ -26,7 +27,7 @@ public class Pedido {
     public void setCodPedido(int codPedido) {
         this.codPedido = codPedido;
     }
-        
+       
         
         public Pedido() {	
             estadoMiPedido= EstadoPedido.ENCREACION;

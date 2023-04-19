@@ -9,6 +9,7 @@ public class Incidencia {
 
 	private Date fechaIncidencia;
 	private String descripcion;
+
         private int codPedidio;
         private int codSocio;
 
@@ -35,6 +36,7 @@ public class Incidencia {
         this.codSocio = codSocio;
     }
         
+
 
 	public Date getFechaIncidencia() {
 		return this.fechaIncidencia;

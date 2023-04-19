@@ -4,6 +4,7 @@ package edt5tacondeoro1;
  * Los socios son personas que se registran en el sistema. Un socio puede realizar pedidos de art�culos a la venta. Puede tener asociadas ninguna, una o varias tarjetas bancarias para pagar sus compras. De un socio se almacena su nombre, correo electr�nico, direcci�n y poblaci�n. Seg�n su poblaci�n se asignar�n sus pedidos a una ruta u otra.
  */
 public class Socio {
+
   
 	private String nombre;
 	private String correoE;
@@ -36,6 +37,15 @@ public class Socio {
         this.codSocio = codSocio;
     }
     
+
+
+    public Socio(String nombre, String correoE, String direccion, String poblacion) {
+        this.nombre = nombre;
+        this.correoE = correoE;
+        this.direccion = direccion;
+        this.poblacion = poblacion;
+    }
+
 
         
 	public void verCatalogo() {

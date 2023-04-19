@@ -1,6 +1,7 @@
 package edt5tacondeoro1;
 
 /**
+<<<<<<< HEAD
  * Representa una ruta de env�o de paquetes de los socios. Los pedidos se asignan a las rutas en funci�n de la poblaci�n del socio que ha hecho el pedido. Una ruta almacena un �rea de influencia y unos d�as de reparto.
  */
 public class Ruta {
@@ -36,6 +37,7 @@ public class Ruta {
     }
         
         
+
 
 	public String[] getAreaInfluencia() {
 		return this.areaInfluencia;
