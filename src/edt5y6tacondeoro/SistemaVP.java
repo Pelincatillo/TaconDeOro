@@ -46,26 +46,26 @@ public class SistemaVP extends javax.swing.JFrame {
         listaSocios.add(maxi);
         listaSocios.add(pruden);
         //Creamos unos artículos de ejemplo: bolso zapatos y complemento.
-        Bolso b= new Bolso("bandolera","NikeBolso",50,"Blanco, cómodo y flexible","cuero",10,"fotoBolso");
-        Zapato z= new Zapato(38,"Deportivas","NikeZapato",200,"Blanco, cómodo y flexible","cuero",10,"fotoBolso");
-        Complemento c= new Complemento("Cinturón",54,"NikeComplemento",25,"Blanco, cómodo y flexible","cuero",10,"fotoBolso");
-        listaArticulos.add(b);
-        listaArticulos.add(z);
-        listaArticulos.add(c);
+//        Bolso b= new Bolso("bandolera","NikeBolso",50,"Blanco, cómodo y flexible","cuero",10,"fotoBolso");
+//        Zapato z= new Zapato(38,"Deportivas","NikeZapato",200,"Blanco, cómodo y flexible","cuero",10,"fotoBolso");
+//        Complemento c= new Complemento("Cinturón",54,"NikeComplemento",25,"Blanco, cómodo y flexible","cuero",10,"fotoBolso");
+//        listaArticulos.add(b);
+//        listaArticulos.add(z);
+//        listaArticulos.add(c);
         //Creamos algunos Pedidos sin las líneas, ya que se las añadimos posteriormente
         Pedido pmaxi= new Pedido(maxi);
         Pedido ppruden= new Pedido(pruden);
         //Creamos algunas lineas de pedido
-        lp= new LineaPedido (b,15);// bolso, 15 unidades. No hay stock.
+        //lp= new LineaPedido (b,15);// bolso, 15 unidades. No hay stock.
         //Metemos esta lineaPedido en la listaLineasPedidos
         listaLineasP.add(lp);
         //Metemos esta lista de lineas de pedido en el pedido de Máximo:
         pmaxi.setLineasPedidos(listaLineasP);//Este pedido no se puede cumplimentar por falta de stock.
         //Ahora crearemos lineas de pedido con artículos con suficiente stock y lo meteremos en el pedido de pruden.
         listaLineasP.clear();//Limpiamos la lista de líneas para dejarla vacía y usarla para el otro pedido
-        lp= new LineaPedido (b,5);// bolso, 5 unidades. Hay stock.
+        //lp= new LineaPedido (b,5);// bolso, 5 unidades. Hay stock.
         listaLineasP.add(lp);
-        lp= new LineaPedido (z,8);// zapato, 8 unidades. Hay stock.
+        //lp= new LineaPedido (z,8);// zapato, 8 unidades. Hay stock.
         listaLineasP.add(lp);
         //Metemos esta lista de lineas de pedido en el pedido de Prudencio:
         ppruden.setLineasPedidos(listaLineasP);
