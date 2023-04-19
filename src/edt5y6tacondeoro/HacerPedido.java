@@ -4,6 +4,8 @@
  */
 package edt5y6tacondeoro;
 
+import javax.swing.SpinnerNumberModel;
+
 /**
  *
  * @author usuario
@@ -11,14 +13,18 @@ package edt5y6tacondeoro;
 public class HacerPedido extends javax.swing.JDialog {
  private SistemaVP mipadre=null;
  int i;
+ private SpinnerNumberModel nm= new SpinnerNumberModel();
     /**
      * Creates new form HcacerPedido
      */
     public HacerPedido(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        nm.setMinimum(0);
+        spn_cant.setModel(nm);
         parent.setVisible(false);
         mipadre=(SistemaVP) parent;
+        spn_cant.setEnabled(false);
     }
 
     /**
@@ -33,7 +39,7 @@ public class HacerPedido extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_produc = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         spn_cant = new javax.swing.JSpinner();
         jLabel2 = new javax.swing.JLabel();
@@ -58,7 +64,7 @@ public class HacerPedido extends javax.swing.JDialog {
 
         jLabel1.setText("Cantidad");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_produc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -69,12 +75,12 @@ public class HacerPedido extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbl_produc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                tbl_producMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbl_produc);
 
         jButton1.setText("Realizar pedido");
 
@@ -214,14 +220,17 @@ public class HacerPedido extends javax.swing.JDialog {
 
     private void spn_cantPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_spn_cantPropertyChange
         // TODO add your handling code here:
-       // if(spn_cant)
+      
     }//GEN-LAST:event_spn_cantPropertyChange
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void tbl_producMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_producMouseClicked
         // TODO add your handling code here:
         //noseque array? =new articulo ;
-        //
-    }//GEN-LAST:event_jTable1MouseClicked
+        spn_cant.setEnabled(true);
+        //tbl_produc.getSelectedRow();
+        //int num=articulo o yo que se.cant o stock
+         //nm.setMaximum(num);
+    }//GEN-LAST:event_tbl_producMouseClicked
 
     /**
      * @param args the command line arguments
@@ -280,7 +289,7 @@ public class HacerPedido extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JSpinner spn_cant;
+    private javax.swing.JTable tbl_produc;
     // End of variables declaration//GEN-END:variables
 }
