@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,6 +23,7 @@ public class HacerPedido extends javax.swing.JDialog {
     DefaultTableModel dtmArticulos = null;
     DefaultTableModel dtmCarrito = null;
     DefaultTableModel dtmTalla = null;
+    SpinnerNumberModel snm = new SpinnerNumberModel();
 
     /**
      * Creates new form HcacerPedido
@@ -38,6 +40,8 @@ public class HacerPedido extends javax.swing.JDialog {
         dtmCarrito.addColumn("PrecioxCTD");
         dtmCarrito.addColumn("Cantidad");
         dtmCarrito.addColumn("Talla");
+        snm.setMinimum(1);
+        spn_cantidad.setModel(snm);
     }
 
     /**
@@ -249,12 +253,7 @@ public class HacerPedido extends javax.swing.JDialog {
         int ctd = (int) spn_cantidad.getValue();
         Object[] lineaPedido = new Object[4];
         lineaPedido[0] = dtmArticulos.getValueAt(i, 0);
-        if (ctd == 0) {
-            ctd = 1;
-            lineaPedido[1] = precio * ctd;
-        } else {
-            lineaPedido[1] = precio * ctd;
-        }
+        lineaPedido[1] = precio * ctd;
         lineaPedido[2] = ctd;
         if (tbl_talla.isRowSelected(j)) {
             lineaPedido[3] = dtmTalla.getValueAt(j, 0);
