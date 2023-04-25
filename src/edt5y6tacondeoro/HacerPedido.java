@@ -74,6 +74,11 @@ public class HacerPedido extends javax.swing.JDialog {
         });
 
         btn_pedido.setText("Realizar pedido");
+        btn_pedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pedidoActionPerformed(evt);
+            }
+        });
 
         tbl_articulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -224,8 +229,17 @@ public class HacerPedido extends javax.swing.JDialog {
         // TODO add your handling code here:
         int i = tbl_articulos.getSelectedRow();
         String nombre=(String) dtmArticulos.getValueAt(i, 0);
+        if(nombre.contains("Bolso"))
+        {
+            tbl_talla.setEnabled(false);
+            tbl_talla.setVisible(false);
+        }else{
+        tbl_talla.setVisible(true);
+        tbl_talla.setEnabled(true);
         obtenerTallas(nombre);
         tbl_talla.setModel(dtmTalla);
+        }
+       // tbl_talla.setModel(dtmTalla);
     }//GEN-LAST:event_tbl_articulosMouseClicked
 
     private void btn_añadirCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_añadirCarritoActionPerformed
@@ -251,6 +265,13 @@ public class HacerPedido extends javax.swing.JDialog {
         }
         dtmCarrito.addRow(lineaPedido);
     }//GEN-LAST:event_btn_añadirCarritoActionPerformed
+
+    private void btn_pedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pedidoActionPerformed
+        // TODO add your handling code here:
+        //guardar lo del carrito para meterlo luego de haber creado el socio o selecionarlo
+        Indentificacionsoc idensoc = new Indentificacionsoc(this,true);
+        idensoc.setVisible(true);
+    }//GEN-LAST:event_btn_pedidoActionPerformed
     public void conexionBD() {
         Statement s = null;
         ResultSet rs = null;

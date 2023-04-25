@@ -39,13 +39,4 @@ public class Ruta {
         this.codEmpresaTransporte = codEmpresaTransporte;
     }
         
-        
-
-=======
- * Representa una ruta de env�o de paquetes de los socios. Los pedidos se asignan a las rutas en funci�n de la poblaci�n del socio que ha hecho el pedido. Una ruta almacena un �rea de influencia y unos d�as de reparto.
- */
-public class Ruta {
-
-	private String[] areaInfluencia;
-	private String[] diasReparto;
-	EmpresaDeTransporte EmpresaDeTransportesRol;
+}

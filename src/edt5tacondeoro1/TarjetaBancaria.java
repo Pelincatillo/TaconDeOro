@@ -51,6 +51,7 @@ public class TarjetaBancaria {
         this.numero = numero;
         this.codSocio = codSocio;
     }
+}
     
     
    
