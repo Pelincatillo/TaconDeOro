@@ -5,27 +5,46 @@ package edt5tacondeoro1;
  */
 public class Articulo {
 
+        private int codArticulo;
 	private String nombre;
 	private float precio;
 	private String descripcion;
 	private String material;
+        private String tipo;//Bolso,Zapato y complemento
 	private int stock;
-	private String fotografia;
+	
         
         public Articulo(){
             
         }
 
-    public Articulo(String nombre, float precio, String descripcion, String material, int stock, String fotografia) {
+    public Articulo(int codArticulo,String nombre, float precio, String descripcion, String material,String tipo, int stock) {
+        this.codArticulo = codArticulo;
         this.nombre = nombre;
         this.precio = precio;
         this.descripcion = descripcion;
         this.material = material;
+        this.tipo = tipo;
         this.stock = stock;
-        this.fotografia = fotografia;
+        
+    }
+
+    public int getCodArticulo() {
+        return codArticulo;
+    }
+
+    public void setCodArticulo(int codArticulo) {
+        this.codArticulo = codArticulo;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
         
-
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -85,18 +104,6 @@ public class Articulo {
 	 */
 	public void setStock(int stock) {
 		this.stock = stock;
-	}
-
-	public String getFotografia() {
-		return this.fotografia;
-	}
-
-	/**
-	 * 
-	 * @param fotografia
-	 */
-	public void setFotografia(String fotografia) {
-		this.fotografia = fotografia;
 	}
 
 }

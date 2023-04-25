@@ -10,6 +10,34 @@ public class Incidencia {
 	private Date fechaIncidencia;
 	private String descripcion;
 
+        private int codPedidio;
+        private int codSocio;
+
+    public Incidencia(Date fechaIncidencia, String descripcion, int codPedidio, int codSocio) {
+        this.fechaIncidencia = fechaIncidencia;
+        this.descripcion = descripcion;
+        this.codPedidio = codPedidio;
+        this.codSocio = codSocio;
+    }
+
+    public int getCodPedidio() {
+        return codPedidio;
+    }
+
+    public void setCodPedidio(int codPedidio) {
+        this.codPedidio = codPedidio;
+    }
+
+    public int getCodSocio() {
+        return codSocio;
+    }
+
+    public void setCodSocio(int codSocio) {
+        this.codSocio = codSocio;
+    }
+        
+
+
 	public Date getFechaIncidencia() {
 		return this.fechaIncidencia;
 	}

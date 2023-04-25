@@ -1,11 +1,16 @@
 package edt5tacondeoro1;
 
 /**
- * Representa la tarjeta de crédito o débito con la que el socio pagará el pedido. Tiene un número de tarjeta y debe poder comprobarse su validez contra una entidad bancaria.
+package edt5tacondeoro1;
+
+/**
+
+ * Representa la tarjeta de cr�dito o dEbito con la que el socio pagar� el pedido. Tiene un n�mero de tarjeta y debe poder comprobarse su validez contra una entidad bancaria.
  */
 public class TarjetaBancaria {
 
 	private String numero;
+        private int codSocio;
 
 	public boolean comprobarValidez() {
 		// TODO - implement TarjetaBancaria.comprobarValidez
@@ -32,5 +37,24 @@ public class TarjetaBancaria {
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
+        
 
+    public int getCodSocio() {
+        return codSocio;
+    }
+
+    public void setCodSocio(int codSocio) {
+        this.codSocio = codSocio;
+    }
+
+    public TarjetaBancaria(String numero, int codSocio) {
+        this.numero = numero;
+        this.codSocio = codSocio;
+    }
 }
+    
+    
+   
+        
+
+

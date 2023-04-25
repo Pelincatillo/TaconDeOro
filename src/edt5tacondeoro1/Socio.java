@@ -5,10 +5,39 @@ package edt5tacondeoro1;
  */
 public class Socio {
 
+  
 	private String nombre;
 	private String correoE;
 	private String direccion;
 	private String poblacion;
+        private int codSocio;
+
+    public Socio(int codSocio,String nombre, String correoE, String direccion, String poblacion) {
+        this.nombre = nombre;
+        this.correoE = correoE;
+        this.direccion = direccion;
+        this.poblacion = poblacion;
+        this.codSocio = codSocio;
+    }
+
+    public Socio(String nombre, String correoE, String direccion, String poblacion, int codSocio) {
+        this.nombre = nombre;
+        this.correoE = correoE;
+        this.direccion = direccion;
+        this.poblacion = poblacion;
+        this.codSocio = codSocio;
+    }
+    
+
+    public int getCodSocio() {
+        return codSocio;
+    }
+
+    public void setCodSocio(int codSocio) {
+        this.codSocio = codSocio;
+    }
+    
+
 
     public Socio(String nombre, String correoE, String direccion, String poblacion) {
         this.nombre = nombre;
@@ -16,6 +45,7 @@ public class Socio {
         this.direccion = direccion;
         this.poblacion = poblacion;
     }
+
 
         
 	public void verCatalogo() {

@@ -10,13 +10,15 @@ package edt5y6tacondeoro;
  * @author admin
  */
 public class DCumplimentarPedido extends javax.swing.JDialog {
-
+ private SistemaVP mipadre=null;
     /**
      * Creates new form DCumplimentarPedido
      */
     public DCumplimentarPedido(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+         parent.setVisible(false);
+        mipadre=(SistemaVP) parent;
     }
 
     /**
@@ -35,6 +37,11 @@ public class DCumplimentarPedido extends javax.swing.JDialog {
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setText("Lista de Pedidos:");
 
@@ -84,7 +91,7 @@ public class DCumplimentarPedido extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -93,6 +100,11 @@ public class DCumplimentarPedido extends javax.swing.JDialog {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        mipadre.setVisible(true);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
