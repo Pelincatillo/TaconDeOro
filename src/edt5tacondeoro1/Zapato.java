@@ -5,30 +5,45 @@ package edt5tacondeoro1;
  */
 public class Zapato extends Articulo {
 
-	private float talla;
+	private float numero;
+	private String tipo;
 
-    public Zapato(int talla) {
-        this.talla = talla;
+    public Zapato(float numero, String tipo) {
+        this.numero = numero;
+        this.tipo = tipo;
     }
 
-    public Zapato(int talla,int codArticulo, String nombre, float precio, String descripcion, String material,String tipo, int stock) {
-        super(codArticulo,nombre, precio, descripcion, material,tipo, stock);
-        this.talla = talla;
+    public Zapato(float numero, String tipo, String nombre, float precio, String descripcion, String material, int stock, String fotografia) {
+        super(nombre, precio, descripcion, material, stock, fotografia);
+        this.numero = numero;
+        this.tipo = tipo;
+    }
         
-    }
-
-    public float getTalla() {
-        return talla;
-    }
-
-    public void setTalla(float talla) {
-        this.talla = talla;
-    }
-       
         
 
+	public float getNumero() {
+		return this.numero;
+	}
 
+	/**
+	 * 
+	 * @param numero
+	 */
+	public void setNumero(float numero) {
+		this.numero = numero;
+	}
 
+	public String getTipo() {
+		return this.tipo;
+	}
+
+	/**
+	 * 
+	 * @param tipo
+	 */
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 
 	public Zapato() {
 		// TODO - implement Zapato.Zapato

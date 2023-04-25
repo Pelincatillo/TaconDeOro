@@ -7,11 +7,7 @@ public class LineaPedido {
 
 	private int cantidad;
 	private Articulo articulo;
-
-	private Pedido Pedido;
-
 	//private Pedido Pedido;
-
 
     public LineaPedido(Articulo articulo, int cantidad) {
         this.cantidad = cantidad;

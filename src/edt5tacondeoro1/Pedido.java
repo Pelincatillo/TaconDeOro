@@ -10,8 +10,6 @@ enum EstadoPedido{
 }
 public class Pedido {
 
-
-        private int codPedido;
 	//private Date fecha;
         private Calendar fecha;
 	private float total;
@@ -19,15 +17,6 @@ public class Pedido {
 	//Collection<LineaPedido> LineasPedidos;
         private ArrayList<LineaPedido> lineasPedidos;
         EstadoPedido estadoMiPedido;
-
-    public int getCodPedido() {
-        return codPedido;
-    }
-
-    public void setCodPedido(int codPedido) {
-        this.codPedido = codPedido;
-    }
-       
         
         public Pedido() {	
             estadoMiPedido= EstadoPedido.ENCREACION;
