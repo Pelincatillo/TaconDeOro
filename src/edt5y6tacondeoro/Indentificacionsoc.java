@@ -9,16 +9,19 @@ package edt5y6tacondeoro;
  * @author usuario
  */
 public class Indentificacionsoc extends javax.swing.JDialog {
-  private HacerPedido mipadre=null;
+
+    private HacerPedido mipadre = null;
+
     /**
      * Creates new form Indentificacionsoc
+     *
      * @param parent
      * @param modal
      */
     public Indentificacionsoc(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         parent.setVisible(false);
-        mipadre=(HacerPedido) parent;
+        mipadre = (HacerPedido) parent;
         initComponents();
     }
 
@@ -131,7 +134,7 @@ public class Indentificacionsoc extends javax.swing.JDialog {
 
     private void btn_selecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selecionarActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btn_selecionarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed

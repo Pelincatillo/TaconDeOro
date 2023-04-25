@@ -23,28 +23,28 @@ import java.sql.SQLException;
  * @author admin
  */
 public class SistemaVP extends javax.swing.JFrame {
+
     ArrayList<Articulo> listaArticulos;
     ArrayList<Socio> listaSocios;
     ArrayList<Ruta> listaRutas;
     ArrayList<Pedido> listaPedidos;
     ArrayList<LineaPedido> listaLineasP;
-    public static final String URL="jdbc:mysql://192.168.1.53:3306/taconDeOro";
-    public static final String USERNAME="usuarioTaconOro";
-    public static final String PASSWORD="usuarioTaconOro";
+    public static final String URL = "jdbc:mysql://192.168.1.53:3306/taconDeOro";
+    public static final String USERNAME = "usuarioTaconOro";
+    public static final String PASSWORD = "usuarioTaconOro";
 
     /**
      * Creates new form SistemaVP
      */
     public SistemaVP() {
         initComponents();
-        listaArticulos= new <Articulo> ArrayList();
-        listaSocios= new <Socio> ArrayList();
-        listaRutas= new <Ruta> ArrayList();
-        listaPedidos= new <Pedido> ArrayList();
-        listaLineasP= new <LineaPedido> ArrayList();
-        
-        
+        listaArticulos = new <Articulo> ArrayList();
+        listaSocios = new <Socio> ArrayList();
+        listaRutas = new <Ruta> ArrayList();
+        listaPedidos = new <Pedido> ArrayList();
+        listaLineasP = new <LineaPedido> ArrayList();
     }
+
     public static Connection hazConexion() {
         Connection conexion = null;
         try {
@@ -161,16 +161,14 @@ public class SistemaVP extends javax.swing.JFrame {
 
     private void btn_socActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_socActionPerformed
         // TODO add your handling code here:
-        
-        HacerPedido hp= new HacerPedido(this,true);
+        HacerPedido hp = new HacerPedido(this, true);
         hp.setVisible(true);
-        
     }//GEN-LAST:event_btn_socActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
-    
+
     /**
      * @param args the command line arguments
      */

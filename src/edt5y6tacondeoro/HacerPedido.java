@@ -17,11 +17,12 @@ import javax.swing.table.DefaultTableModel;
  * @author usuario
  */
 public class HacerPedido extends javax.swing.JDialog {
-    private SistemaVP mipadre=null;
+
+    private SistemaVP mipadre = null;
     DefaultTableModel dtmArticulos = null;
     DefaultTableModel dtmCarrito = null;
     DefaultTableModel dtmTalla = null;
- 
+
     /**
      * Creates new form HcacerPedido
      */
@@ -29,7 +30,7 @@ public class HacerPedido extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         parent.setVisible(false);
-        mipadre=(SistemaVP) parent;
+        mipadre = (SistemaVP) parent;
         SistemaVP.hazConexion();
         conexionBD();
         dtmCarrito = new DefaultTableModel();
@@ -38,7 +39,7 @@ public class HacerPedido extends javax.swing.JDialog {
         dtmCarrito.addColumn("Cantidad");
         dtmCarrito.addColumn("Talla");
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -228,18 +229,15 @@ public class HacerPedido extends javax.swing.JDialog {
     private void tbl_articulosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_articulosMouseClicked
         // TODO add your handling code here:
         int i = tbl_articulos.getSelectedRow();
-        String nombre=(String) dtmArticulos.getValueAt(i, 0);
-        if(nombre.contains("Bolso"))
-        {
-            tbl_talla.setEnabled(false);
-            tbl_talla.setVisible(false);
-        }else{
-        tbl_talla.setVisible(true);
-        tbl_talla.setEnabled(true);
-        obtenerTallas(nombre);
-        tbl_talla.setModel(dtmTalla);
+        String nombre = (String) dtmArticulos.getValueAt(i, 0);
+        if (nombre.contains("Bolso")) {
+            jScrollPane4.setVisible(false);
+        } else {
+            jScrollPane4.setVisible(true);
+            obtenerTallas(nombre);
+            tbl_talla.setModel(dtmTalla);
         }
-       // tbl_talla.setModel(dtmTalla);
+        // tbl_talla.setModel(dtmTalla);
     }//GEN-LAST:event_tbl_articulosMouseClicked
 
     private void btn_añadirCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_añadirCarritoActionPerformed
@@ -247,21 +245,21 @@ public class HacerPedido extends javax.swing.JDialog {
         int i = tbl_articulos.getSelectedRow();
         int j = tbl_talla.getSelectedRow();
         tbl_carrito.setModel(dtmCarrito);
-        float precio=(float) dtmArticulos.getValueAt(i, 1);
-        int ctd = (int)spn_cantidad.getValue();
+        float precio = (float) dtmArticulos.getValueAt(i, 1);
+        int ctd = (int) spn_cantidad.getValue();
         Object[] lineaPedido = new Object[4];
-        lineaPedido[0]=dtmArticulos.getValueAt(i, 0);
+        lineaPedido[0] = dtmArticulos.getValueAt(i, 0);
         if (ctd == 0) {
             ctd = 1;
-            lineaPedido[1]= precio * ctd;
+            lineaPedido[1] = precio * ctd;
         } else {
-            lineaPedido[1]= precio * ctd;
+            lineaPedido[1] = precio * ctd;
         }
-        lineaPedido[2]=ctd;
+        lineaPedido[2] = ctd;
         if (tbl_talla.isRowSelected(j)) {
-            lineaPedido[3]=dtmTalla.getValueAt(j, 0);
+            lineaPedido[3] = dtmTalla.getValueAt(j, 0);
         } else {
-            lineaPedido[3]="Sin talla";
+            lineaPedido[3] = "Sin talla";
         }
         dtmCarrito.addRow(lineaPedido);
     }//GEN-LAST:event_btn_añadirCarritoActionPerformed
@@ -269,7 +267,7 @@ public class HacerPedido extends javax.swing.JDialog {
     private void btn_pedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pedidoActionPerformed
         // TODO add your handling code here:
         //guardar lo del carrito para meterlo luego de haber creado el socio o selecionarlo
-        Indentificacionsoc idensoc = new Indentificacionsoc(this,true);
+        Indentificacionsoc idensoc = new Indentificacionsoc(this, true);
         idensoc.setVisible(true);
     }//GEN-LAST:event_btn_pedidoActionPerformed
     public void conexionBD() {
@@ -301,7 +299,8 @@ public class HacerPedido extends javax.swing.JDialog {
             }
         }
     }
-    public void obtenerTallas(String nombre){
+
+    public void obtenerTallas(String nombre) {
         Statement s = null;
         ResultSet rs = null;
         Connection co = null;
@@ -310,7 +309,7 @@ public class HacerPedido extends javax.swing.JDialog {
         dtmTalla.addColumn("Talla");
         try {
             s = co.createStatement();
-            rs = s.executeQuery("select talla from articulo where nombre=" + "'"+nombre+"'");
+            rs = s.executeQuery("select talla from articulo where nombre=" + "'" + nombre + "'");
             while (rs.next()) {
                 Object[] fila = new Object[1];
                 fila[0] = rs.getObject(1);
@@ -327,6 +326,7 @@ public class HacerPedido extends javax.swing.JDialog {
             }
         }
     }
+
     /**
      * @param args the command line arguments
      */
