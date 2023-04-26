@@ -4,6 +4,12 @@
  */
 package edt5y6tacondeoro;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author usuario
@@ -11,6 +17,8 @@ package edt5y6tacondeoro;
 public class Indentificacionsoc extends javax.swing.JDialog {
 
     private HacerPedido mipadre = null;
+    private SistemaVP origen = null;
+    
 
     /**
      * Creates new form Indentificacionsoc
@@ -23,6 +31,7 @@ public class Indentificacionsoc extends javax.swing.JDialog {
         parent.setVisible(false);
         mipadre = (HacerPedido) parent;
         initComponents();
+        
     }
 
     /**
@@ -134,7 +143,10 @@ public class Indentificacionsoc extends javax.swing.JDialog {
 
     private void btn_selecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selecionarActionPerformed
         // TODO add your handling code here:
-
+        int codSocio= Integer.parseInt(txf_cod.getText().trim());
+        comprobacionSocio(codSocio);
+ 
+        
     }//GEN-LAST:event_btn_selecionarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -183,6 +195,34 @@ public class Indentificacionsoc extends javax.swing.JDialog {
             }
         });
     }
+    public boolean comprobacionSocio(int codSocio){
+        Statement s = null;
+        ResultSet rs = null;
+        Boolean salida= false;
+        Connection co= (Connection) origen.hazConexion();
+        try {
+            s = co.createStatement();
+            rs= s.executeQuery("select codSocio, from socio");
+            //rs= s.executeQuery("select codSocio, from socio where codSocio="+"'"+codSocio+"'");
+            while(rs.next()){
+                int codSocioTemp= (int)rs.getObject(1);
+                if(codSocioTemp == codSocio){
+                    salida= true;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Indentificacionsoc.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                s.close();
+                co.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Indentificacionsoc.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return salida;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_crear;
