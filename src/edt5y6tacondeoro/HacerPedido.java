@@ -41,6 +41,7 @@ public class HacerPedido extends javax.swing.JDialog {
         dtmCarrito.addColumn("Cantidad");
         dtmCarrito.addColumn("Talla");
         snm.setMinimum(1);
+        snm.setValue(1);
         spn_cantidad.setModel(snm);
     }
 
@@ -234,13 +235,13 @@ public class HacerPedido extends javax.swing.JDialog {
         // TODO add your handling code here:
         int i = tbl_articulos.getSelectedRow();
         String nombre = (String) dtmArticulos.getValueAt(i, 0);
-        if (nombre.contains("Bolso")) {
-            jScrollPane4.setVisible(false);
-        } else {
-            jScrollPane4.setVisible(true);
+//        if (nombre.contains("Bolso")) {
+//            jScrollPane4.setVisible(false);
+//        } else {
+//            jScrollPane4.setVisible(true);
             obtenerTallas(nombre);
             tbl_talla.setModel(dtmTalla);
-        }
+//        }
         // tbl_talla.setModel(dtmTalla);
     }//GEN-LAST:event_tbl_articulosMouseClicked
 
