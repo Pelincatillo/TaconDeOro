@@ -281,7 +281,7 @@ public class HacerPedido extends javax.swing.JDialog {
         co = mipadre.hazConexion();
         try {
             s = co.createStatement();
-            rs = s.executeQuery("select nombre, precio from articulo");
+            rs = s.executeQuery("select distinct nombre, precio from articulo");
             while (rs.next()) {
                 Object[] fila = new Object[2];
                 fila[0] = rs.getObject(1);

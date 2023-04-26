@@ -4,12 +4,18 @@
  */
 package edt5y6tacondeoro;
 
+import edt5tacondeoro1.Articulo;
+import edt5tacondeoro1.LineaPedido;
+import edt5tacondeoro1.Pedido;
+import edt5tacondeoro1.Socio;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author usuario
@@ -18,7 +24,6 @@ public class Indentificacionsoc extends javax.swing.JDialog {
 
     private HacerPedido mipadre = null;
     private SistemaVP origen = null;
-    
 
     /**
      * Creates new form Indentificacionsoc
@@ -31,7 +36,7 @@ public class Indentificacionsoc extends javax.swing.JDialog {
         parent.setVisible(false);
         mipadre = (HacerPedido) parent;
         initComponents();
-        
+
     }
 
     /**
@@ -143,10 +148,15 @@ public class Indentificacionsoc extends javax.swing.JDialog {
 
     private void btn_selecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selecionarActionPerformed
         // TODO add your handling code here:
-        int codSocio= Integer.parseInt(txf_cod.getText().trim());
-        comprobacionSocio(codSocio);
- 
+        int codSocio = Integer.parseInt(txf_cod.getText().trim());
+        boolean existe = comprobacionSocio(codSocio);
+        if (existe == true) {
+            ArrayList lineaPedido = getLineaPedido();
+            Socio socioT = getSocio(codSocio);
+            Pedido nuevoPedido = new Pedido(socioT, lineaPedido);
+        }
         
+
     }//GEN-LAST:event_btn_selecionarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -195,24 +205,25 @@ public class Indentificacionsoc extends javax.swing.JDialog {
             }
         });
     }
-    public boolean comprobacionSocio(int codSocio){
+
+    public boolean comprobacionSocio(int codSocio) {
         Statement s = null;
         ResultSet rs = null;
-        Boolean salida= false;
-        Connection co= (Connection) origen.hazConexion();
+        Boolean salida = false;
+        Connection co = (Connection) origen.hazConexion();
         try {
             s = co.createStatement();
-            rs= s.executeQuery("select codSocio, from socio");
+            rs = s.executeQuery("select codSocio from socio");
             //rs= s.executeQuery("select codSocio, from socio where codSocio="+"'"+codSocio+"'");
-            while(rs.next()){
-                int codSocioTemp= (int)rs.getObject(1);
-                if(codSocioTemp == codSocio){
-                    salida= true;
+            while (rs.next()) {
+                int codSocioTemp = (int) rs.getObject(1);
+                if (codSocioTemp == codSocio) {
+                    salida = true;
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(Indentificacionsoc.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             try {
                 s.close();
                 co.close();
@@ -221,6 +232,94 @@ public class Indentificacionsoc extends javax.swing.JDialog {
             }
         }
         return salida;
+    }
+
+    public Articulo getArticuloCarrito(String nomArticulo) {
+
+        Articulo artTemp = null;
+
+        Statement s = null;
+        ResultSet rs = null;
+        Connection co = null;
+
+        co = SistemaVP.hazConexion();
+        try {
+            s = co.createStatement();
+            rs = s.executeQuery("select codArticulo, nombre, precio, descripcion, material, tipo, stock from articulo where nombre='" + nomArticulo + "'");
+            while (rs.next()) {
+                Object[] fila = new Object[7];
+                fila[0] = rs.getObject(1);
+                fila[1] = rs.getObject(2);
+                fila[2] = rs.getObject(3);
+                fila[3] = rs.getObject(4);
+                fila[4] = rs.getObject(5);
+                fila[5] = rs.getObject(6);
+                fila[6] = rs.getObject(7);
+                artTemp = new Articulo((int) fila[0], (String) fila[1], (float) fila[2], (String) fila[3], (String) fila[4], (String) fila[5], (int) fila[6]);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error. " + ex.getMessage());
+        } finally {
+            try {
+                s.close();
+                co.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(HacerPedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return artTemp;
+    }
+
+    public ArrayList getLineaPedido() {
+        ArrayList lineaPed = null;
+        LineaPedido lineaTemp = null;
+        Articulo articulo;
+        int ctd = 0;
+
+        for (int i = 0; i < mipadre.dtmCarrito.getRowCount(); i++) {
+            articulo = getArticuloCarrito((String) mipadre.dtmCarrito.getValueAt(i, 0));
+            ctd = (int) mipadre.dtmCarrito.getValueAt(i, 2);
+            lineaTemp = new LineaPedido(articulo, ctd);
+            lineaPed.add(lineaTemp);
+        }
+
+        return lineaPed;
+    }
+
+    public Socio getSocio(int idSocio) {
+
+        Socio socTemp = null;
+
+        Statement s = null;
+        ResultSet rs = null;
+        Connection co = null;
+
+        co = SistemaVP.hazConexion();
+        try {
+            s = co.createStatement();
+            rs = s.executeQuery("select codSocio, nombre, correoE, direccion, poblacion where codSocio=" + idSocio);
+            while (rs.next()) {
+                Object[] fila = new Object[5];
+                fila[0] = rs.getObject(1);
+                fila[1] = rs.getObject(2);
+                fila[2] = rs.getObject(3);
+                fila[3] = rs.getObject(4);
+                fila[4] = rs.getObject(5);
+                socTemp = new Socio((int) fila[0], (String) fila[1], (String) fila[2], (String) fila[3], (String) fila[4]);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error. " + ex.getMessage());
+        } finally {
+            try {
+                s.close();
+                co.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(HacerPedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return socTemp;
     }
 
 
