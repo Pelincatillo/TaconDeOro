@@ -272,7 +272,7 @@ public class Indentificacionsoc extends javax.swing.JDialog {
     }
 
     public ArrayList getLineaPedido() {
-        ArrayList lineaPed = null;
+        ArrayList lineaPed = new ArrayList();
         LineaPedido lineaTemp = null;
         Articulo articulo;
         int ctd = 0;
@@ -298,7 +298,7 @@ public class Indentificacionsoc extends javax.swing.JDialog {
         co = SistemaVP.hazConexion();
         try {
             s = co.createStatement();
-            rs = s.executeQuery("select codSocio, nombre, correoE, direccion, poblacion where codSocio=" + idSocio);
+            rs = s.executeQuery("select codSocio, nombre, correoE, direccion, poblacion from socio where codSocio=" + idSocio);
             while (rs.next()) {
                 Object[] fila = new Object[5];
                 fila[0] = rs.getObject(1);
